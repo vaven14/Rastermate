@@ -8,6 +8,7 @@ experiments, and headless rendering.
 - Create/destroy buffer
 - Clear buffer with color
 - Set pixel (safe + fast)
+- Blending pixel (safe + fast)
 
 ## Build
 On Linux/macOS:

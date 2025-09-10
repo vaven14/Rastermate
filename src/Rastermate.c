@@ -64,4 +64,31 @@ bool rm_set_pixel(RM_Buffer *buf, RM_Point p, RM_Color col) {
 }
 
 
+bool rm_blend_pixel(RM_Buffer *buf, RM_Point p, RM_Color src) {
+    if (!buf || !buf->data) return false;
+
+    if (p.x < 0 || p.y < 0 ||
+        p.x >= (int32_t)buf->size.w ||
+        p.y >= (int32_t)buf->size.h) {
+        return false; // outside bounds
+    }
+
+    uint8_t *row = buf->data + (size_t)p.y * buf->pitch;
+    uint32_t *pixels = (uint32_t *)row;
+
+    RM_Color dst = { .value = pixels[p.x] };
+    RM_Color out;
+
+    // Each term fits in 16 bits
+    out.r = (uint8_t)(((uint16_t)src.r * src.a + (uint16_t)dst.r * (255 - src.a)) / 255);
+    out.g = (uint8_t)(((uint16_t)src.g * src.a + (uint16_t)dst.g * (255 - src.a)) / 255);
+    out.b = (uint8_t)(((uint16_t)src.b * src.a + (uint16_t)dst.b * (255 - src.a)) / 255);
+
+    out.a = (uint8_t)(((uint16_t)src.a * 255 + (uint16_t)dst.a * (255 - src.a)) / 255);
+
+    pixels[p.x] = out.value;
+    return true;
+}
+
+
 
