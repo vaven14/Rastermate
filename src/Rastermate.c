@@ -2,6 +2,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 
 RM_Buffer rm_create(uint32_t w, uint32_t h) {
@@ -92,5 +93,31 @@ bool rm_blend_pixel(RM_Buffer *buf, RM_Point p, RM_Color src) {
     return true;
 }
 
+void rm_printf_color(uint8_t col) {
+    if (col >= 100) {
+        printf("%u ", col);
+    } else if (col >= 10) {
+        printf(" %u ", col);
+    } else {
+        printf("  %u ", col);
+    }
+}
 
+void rm_printf_buffer(RM_Buffer buf) {
+
+    for (int y = 0; y < buf.size.h; y++) {
+            for (int x = 0; x < buf.size.w; x++) {
+                int index = buf.pitch * y + 4 * x;
+                rm_printf_color(buf.data[index]);
+                rm_printf_color(buf.data[index + 1]);
+                rm_printf_color(buf.data[index + 2]);
+                rm_printf_color(buf.data[index + 3]);
+
+                printf("| ");
+
+            }
+            printf("\n");
+        }
+
+    }
 

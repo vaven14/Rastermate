@@ -8,6 +8,7 @@
 
 
 
+
 typedef struct { int32_t x,y; } RM_Point; // position on Canvas
 typedef struct { uint32_t w,h; } RM_Size; // Size of buffer
 
@@ -63,4 +64,56 @@ static inline void rm_blend_pixel_fast(RM_Buffer *buf, int x, int y, RM_Color sr
     row[x] = out.value;
 }
 
+void rm_printf_color(uint8_t col);
+
+void rm_printf_buffer(RM_Buffer buf);
+
+
+// draw line
+
+// draw line aa
+
+
+
+
+// draw rect
+
+// fill rect
+
+// draw circ
+    // draw circ aa
+
+// fill circ
+    // fill circ aa
+
+// draw arc
+    // draw arc aa
+
+// fill arc
+    // fill arc aa
+
+
+
+// draw path
+    // draw path aa
+
+// draw triag
+    // draw triag aa
+
+// fill triag
+    // fill triag aa
+
+// draw poly
+    // draw poly aa
+
+// fill poly
+    // fill poly aa
+
+
+
+//_________________Visualisation____________________
+
+//PPM first
+
+//BMP
 #endif
