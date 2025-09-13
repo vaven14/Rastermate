@@ -116,4 +116,5 @@ void rm_printf_buffer(RM_Buffer buf);
 //PPM first
 
 //BMP
+//static void rm_saveBMP(const char *filename, RM_Buffer *buf);
 #endif
