@@ -69,7 +69,6 @@ void rm_printf_color(uint8_t col);
 void rm_printf_buffer(RM_Buffer buf);
 
 bool rm_draw_line(RM_Buffer *buf, RM_Point p1,RM_Point p2, RM_Color col);
-// draw line
 
 // draw line aa
 
