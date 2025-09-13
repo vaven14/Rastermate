@@ -121,3 +121,48 @@ void rm_printf_buffer(RM_Buffer buf) {
 
     }
 
+bool rm_draw_line(RM_Buffer *buf, RM_Point p1, RM_Point p2, RM_Color col) {
+    if (!buf || !buf->data) return false;
+
+    // Check if both points are inside buffer bounds
+    if (p1.x < 0 || p1.y < 0 ||
+        p1.x >= (int32_t)buf->size.w ||
+        p1.y >= (int32_t)buf->size.h) {
+        return false;
+    }
+    if (p2.x < 0 || p2.y < 0 ||
+        p2.x >= (int32_t)buf->size.w ||
+        p2.y >= (int32_t)buf->size.h) {
+        return false;
+    }
+
+    // --- Bresenham's Line Algorithm ---
+    int x1 = p1.x, y1 = p1.y;
+    int x2 = p2.x, y2 = p2.y;
+
+    int dx = abs(x2 - x1);
+    int dy = abs(y2 - y1);
+    int sx = (x1 < x2) ? 1 : -1;
+    int sy = (y1 < y2) ? 1 : -1;
+    int err = dx - dy;
+
+    while (true) {
+        rm_set_pixel_fast(buf, x1, y1, col);
+
+        if (x1 == x2 && y1 == y2) break;
+
+        int e2 = 2 * err;
+        if (e2 > -dy) {
+            err -= dy;
+            x1 += sx;
+        }
+        if (e2 < dx) {
+            err += dx;
+            y1 += sy;
+        }
+    }
+
+    return true;
+}
+
+
